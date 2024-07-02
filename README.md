@@ -25,7 +25,7 @@ $ npm run start:prod
 
 ## API
 
-`GET` /products - returns a page of products, each page contains 10 prodacts. <br>
+`GET` /products - returns a page of products, each page contains 10 products. <br>
 Query parameters:
 - `page` - current page, 1 by default
 - `sortColumn` - the column to sort by, one of: 'code', 'name', 'amount', 'weight', 'width', 'depth', 'height', 'category', 'material', '' by default
