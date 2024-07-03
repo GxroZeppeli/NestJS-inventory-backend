@@ -37,7 +37,7 @@ Query parameters:
 
 `GET` /products/pages - returns number of pages <br>
 `GET` /products/id - returns product with specified id <br>
-`POST` /products - creates new product, body should be an object with following properties:
+`POST` /products - creates a new product, body should be an object with following properties:
 ```typescript
   @MinLength(3)
   code: string;
