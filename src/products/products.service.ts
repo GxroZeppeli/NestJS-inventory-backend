@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Product } from './product.model';
 import { GetProductsDto } from './dto/get-products.dto';
 import { Op } from 'sequelize';
+import { GetProductPagesDto } from './dto/get-product-pages.dto';
 
 @Injectable()
 export class ProductsService {
@@ -63,8 +64,28 @@ export class ProductsService {
     return this.productModel.findAndCountAll(query);
   }
 
-  async getProductPages() {
-    return Math.ceil((await this.productModel.count()) / this.pageSize);
+  async getProductPages({
+    filterColumn = '',
+    filterGtr = 0,
+    filterLs = 0,
+    category = '',
+  }: GetProductPagesDto) {
+    const query = {};
+
+    if (filterColumn) {
+      const filterOpts = {};
+      if (filterGtr) filterOpts[Op.gt] = filterGtr;
+      if (filterLs) filterOpts[Op.lt] = filterLs;
+      query['where'] = {
+        [filterColumn]: filterOpts,
+      };
+    }
+
+    if (category) {
+      query['where'] = { category };
+    }
+
+    return Math.ceil((await this.productModel.count(query)) / this.pageSize);
   }
 
   async findOne(id: string) {

@@ -8,7 +8,7 @@ Simple backend on nestjs and sequelize for an inventory site with error-handling
 $ npm install
 ```
 
-Create `.env` file in root dir with DB_USER, DB_PASSWORD and DB_NAME
+Create `.env` file in root dir with _DB_USER_, _DB_PASSWORD_ and _DB_NAME_
 
 ## Running the app
 
@@ -25,7 +25,8 @@ $ npm run start:prod
 
 ## API
 
-`GET` /products - returns a page of products, each page contains 10 products. <br>
+`GET` _/products_ - returns a page of products, each page contains 10 products.
+
 Query parameters:
 - `page` - current page, 1 by default
 - `sortColumn` - the column to sort by, one of: 'code', 'name', 'amount', 'weight', 'width', 'depth', 'height', 'category', 'material', '' by default
@@ -35,9 +36,17 @@ Query parameters:
 - `filterLs` - less than value for filtering, float min 0, 0 by default
 - `category` - filter by category, shouldn't be used together with `filterColumn`, '' by default
 
-`GET` /products/pages - returns number of pages <br>
-`GET` /products/id - returns product with specified id <br>
-`POST` /products - creates a new product, body should be an object with following properties:
+`GET` _/products/pages_ - returns number of pages
+
+Query parameters:
+- `filterColumn` - the column to filter, one of: 'amount', 'weight', 'width', 'depth', 'height', '' by default
+- `filterGtr` - greater than value for filtering, float min 0, 0 by default
+- `filterLs` - less than value for filtering, float min 0, 0 by default
+- `category` - filter by category, shouldn't be used together with `filterColumn`, '' by default
+
+`GET` _/products/id_ - returns product with specified id 
+
+`POST` _/products_ - creates a new product, body should be an object with following properties:
 ```typescript
   @MinLength(3)
   code: string;
@@ -68,8 +77,9 @@ Query parameters:
   material: string;
 ```
 
-`PUT` /products/id - updates an object with specified id, body should look like in POST <br>
-`DELETE` /products/id - removes a product with specified id from DB
+`PUT` _/products/id_ - updates an object with specified id, body should look like in POST 
+
+`DELETE` _/products/id_ - removes a product with specified id from DB
 
 ## DB
 

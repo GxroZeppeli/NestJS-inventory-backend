@@ -14,6 +14,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { GetProductsDto } from './dto/get-products.dto';
+import { GetProductPagesDto } from './dto/get-product-pages.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -25,8 +26,8 @@ export class ProductsController {
   }
 
   @Get('pages')
-  getProductPages() {
-    return this.productsService.getProductPages();
+  getProductPages(@Query() getProductPagesDto: GetProductPagesDto) {
+    return this.productsService.getProductPages(getProductPagesDto);
   }
 
   @Get(':id')
