@@ -38,6 +38,7 @@ export class ProductsService {
     filterGtr = 0,
     filterLs = 0,
     category = '',
+    search = '',
   }: GetProductsDto) {
     const query = {
       limit: this.pageSize,
@@ -61,6 +62,15 @@ export class ProductsService {
       query['where'] = { category };
     }
 
+    if (search) {
+      query['where'] = {
+        [Op.or]: [
+          { code: { [Op.iLike]: `%${search}%` } },
+          { name: { [Op.iLike]: `%${search}%` } },
+        ],
+      };
+    }
+
     return this.productModel.findAndCountAll(query);
   }
 
@@ -69,6 +79,7 @@ export class ProductsService {
     filterGtr = 0,
     filterLs = 0,
     category = '',
+    search = '',
   }: GetProductPagesDto) {
     const query = {};
 
@@ -83,6 +94,15 @@ export class ProductsService {
 
     if (category) {
       query['where'] = { category };
+    }
+
+    if (search) {
+      query['where'] = {
+        [Op.or]: [
+          { code: { [Op.iLike]: `%${search}%` } },
+          { name: { [Op.iLike]: `%${search}%` } },
+        ],
+      };
     }
 
     return Math.ceil((await this.productModel.count(query)) / this.pageSize);

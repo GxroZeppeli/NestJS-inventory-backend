@@ -21,4 +21,7 @@ export class GetProductPagesDto {
   @IsOptional()
   @IsEnum(categories)
   category: string;
+
+  @IsOptional()
+  search: string;
 }

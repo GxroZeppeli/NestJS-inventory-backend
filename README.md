@@ -34,7 +34,8 @@ Query parameters:
 - `filterColumn` - the column to filter, one of: 'amount', 'weight', 'width', 'depth', 'height', '' by default
 - `filterGtr` - greater than value for filtering, float min 0, 0 by default
 - `filterLs` - less than value for filtering, float min 0, 0 by default
-- `category` - filter by category, shouldn't be used together with `filterColumn`, '' by default
+- `category` - filter by category, overrides `filterColumn`, '' by default
+- `search` - case-insensitive search for a substring in name or code, overrides `filterColumn` and `category`, '' by default
 
 `GET` _/products/pages_ - returns number of pages
 
@@ -42,7 +43,8 @@ Query parameters:
 - `filterColumn` - the column to filter, one of: 'amount', 'weight', 'width', 'depth', 'height', '' by default
 - `filterGtr` - greater than value for filtering, float min 0, 0 by default
 - `filterLs` - less than value for filtering, float min 0, 0 by default
-- `category` - filter by category, shouldn't be used together with `filterColumn`, '' by default
+- `category` - filter by category, overrides `filterColumn`, '' by default
+- `search` - case-insensitive search for a substring in name or code, overrides `filterColumn` and `category`, '' by default
 
 `GET` _/products/id_ - returns product with specified id 
 
@@ -69,9 +71,7 @@ Query parameters:
   @IsPositive()
   height: number;
 
-  @IsEnum(['Болты', 'Шайбы', 'Трубы', 'Подшипники'], {
-    message: 'Категорией может быть: Болты, Шайбы, Трубы, Подшипники',
-  })
+  @IsEnum(categoryArray)
   category: string;
 
   material: string;

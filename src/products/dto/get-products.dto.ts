@@ -45,4 +45,7 @@ export class GetProductsDto {
   @IsOptional()
   @IsEnum(categories)
   category: string;
+
+  @IsOptional()
+  search: string;
 }
