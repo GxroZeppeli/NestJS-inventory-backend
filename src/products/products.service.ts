@@ -49,26 +49,26 @@ export class ProductsService {
       query['order'] = [[sortColumn, sortOrder]];
     }
 
+    if (filterColumn || category || search) {
+      query['where'] = {};
+    }
+
     if (filterColumn) {
       const filterOpts = {};
       if (filterGtr) filterOpts[Op.gt] = filterGtr;
       if (filterLs) filterOpts[Op.lt] = filterLs;
-      query['where'] = {
-        [filterColumn]: filterOpts,
-      };
+      query['where'][filterColumn] = filterOpts;
     }
 
     if (category) {
-      query['where'] = { category };
+      query['where']['category'] = category;
     }
 
     if (search) {
-      query['where'] = {
-        [Op.or]: [
-          { code: { [Op.iLike]: `%${search}%` } },
-          { name: { [Op.iLike]: `%${search}%` } },
-        ],
-      };
+      query['where'][Op.or] = [
+        { code: { [Op.iLike]: `%${search}%` } },
+        { name: { [Op.iLike]: `%${search}%` } },
+      ];
     }
 
     return this.productModel.findAndCountAll(query);
@@ -83,26 +83,26 @@ export class ProductsService {
   }: GetProductPagesDto) {
     const query = {};
 
+    if (filterColumn || category || search) {
+      query['where'] = {};
+    }
+
     if (filterColumn) {
       const filterOpts = {};
       if (filterGtr) filterOpts[Op.gt] = filterGtr;
       if (filterLs) filterOpts[Op.lt] = filterLs;
-      query['where'] = {
-        [filterColumn]: filterOpts,
-      };
+      query['where'][filterColumn] = filterOpts;
     }
 
     if (category) {
-      query['where'] = { category };
+      query['where']['category'] = category;
     }
 
     if (search) {
-      query['where'] = {
-        [Op.or]: [
-          { code: { [Op.iLike]: `%${search}%` } },
-          { name: { [Op.iLike]: `%${search}%` } },
-        ],
-      };
+      query['where'][Op.or] = [
+        { code: { [Op.iLike]: `%${search}%` } },
+        { name: { [Op.iLike]: `%${search}%` } },
+      ];
     }
 
     return Math.ceil((await this.productModel.count(query)) / this.pageSize);
