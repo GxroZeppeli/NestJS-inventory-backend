@@ -14,7 +14,7 @@ export class ProductsService {
     private productModel: typeof Product,
   ) {}
 
-  pageSize = 10;
+  pageSize = 15;
 
   async create(createProductDto: CreateProductDto) {
     const product = await this.productModel.findOne({
